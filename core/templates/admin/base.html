@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title|default('Remalloc') }}</title>
+  <!-- Bootstrap -->
+  <link href="{{ url_for('static',filename='bootstrap-3.3.7-dist/css/bootstrap.min.css') }}" rel="stylesheet">
+  <!-- Custom style -->
+  <link href="{{ url_for('static',filename='blog/css/main.css') }}" rel="stylesheet">
+</head>
+<body>
+<div class="site-wrapper">
+
+  <div class="site-header">
+    <div class="occupation"></div>
+    <div class="masthead clearfix">
+      <h3 class="masthead-brand">{{ title|default('管理员') }}</h3>
+      <nav>
+        <ul class="nav masthead-nav">
+          <li class="{% if article_active %}{{ "active" }}{% endif %}">
+            <a href="{{ url_for('admin_article') }}">文章</a>
+          </li>
+          <li class="{% if users_active %}{{ "active" }}{% endif %}">
+            <a href="{{ url_for('admin_users') }}">用户</a>
+          </li>
+        </ul>
+      </nav>
+
+    </div>
+    <div class="occupation"></div>
+  </div>
+
+  <div class="site-connect">
+    <div class="occupation"></div>
+    <div class="inner">
+      {% for category,message in get_flashed_messages(True) %}
+        {% if category =="success" %}
+          <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            {{ message }}
+          </div>
+        {% endif %}
+        {% if category =="info" %}
+          <div class="alert alert-info alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            {{ message }}
+          </div>
+        {% endif %}
+        {% if category =="warning" %}
+          <div class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            {{ message }}
+          </div>
+        {% endif %}
+        {% if category =="error" %}
+          <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            {{ message }}
+          </div>
+        {% endif %}
+      {% endfor %}
+      {% block inner %}
+      {% endblock %}
+    </div>
+    <div class="occupation"></div>
+  </div>
+
+</div>
+</body>
+<!-- Bootstrap -->
+<script type="text/javascript"
+        src="{{ url_for('static',filename='blog/js/jquery.min.js') }}"></script>
+<script type="text/javascript"
+        src="{{ url_for('static',filename='bootstrap-3.3.7-dist/js/bootstrap.min.js') }}"></script>
+<!-- Custom script -->
+<script type="text/javascript"
+        src="{{ url_for('static',filename='blog/js/showdown.min.js') }}"></script>
+<script type="text/javascript"
+        src="{{ url_for('static',filename='blog/js/custom.js') }}"></script>
+</html>
+

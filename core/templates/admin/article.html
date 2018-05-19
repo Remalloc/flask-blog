@@ -1,0 +1,62 @@
+{% extends "admin/base.html" %}
+{% block inner %}
+  <div class="admin-articles">
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <tr>
+          <th>文章&nbsp&nbsp<a type="button" class="glyphicon glyphicon-plus" id="add-article"></a></th>
+          <th>发布日期</th>
+          <th>浏览量</th>
+        </tr>
+        {% for post in posts %}
+          <tr >
+            <td><a type="button" data-toggle="modal" data-target="#article-modal"
+                   data-aid="{{ post.id }}" >{{ post.title }}</a></td>
+            <td class="pub-date">{{ post.pub_date }}</td>
+            <td>{{ post.views }}</td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+    {% if pagination.pages >1 %}
+      <ul class="pagination" data-page="{{ pagination.page }}">
+        <li>
+          <a href="
+              {% if pagination.has_prev %}{{ url_for('admin_article',page=pagination.page - 1) }}{% else %}#{% endif %}"
+             aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+        </li>
+        {% for p in pagination.iter_pages() %}
+          <li>
+            <a href="{{ url_for('admin_article',page=p) }}">{{ p }}</a>
+          </li>
+        {% endfor %}
+        <li>
+          <a href="
+              {% if pagination.has_next %}{{ url_for('admin_article',page=pagination.page + 1) }}{% else %}#{% endif %}"
+             aria-label="Previous">
+            <span aria-hidden="true">&raquo;</span></a>
+        </li>
+      </ul>
+    {% endif %}
+    <div class="modal fade" id="article-modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <form method="post">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                  aria-hidden="true">&times;</span></button>
+              <h3 class="modal-title"></h3>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary" id="send-article">提交</button>
+              <button class='btn btn-danger' id="cancel-article" data-dismiss='modal'>取消</button>
+              <button type="button" class="btn btn-primary" id="modify-article">修改</button>
+              <button type="button" class="btn btn-danger" id="delete-article">删除</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block inner %}
+  <h1 class="cover-heading">欢迎来到 Remalloc 的博客 </h1>
+  <p class="lead">在这里你可以看到我的发布的文章以及给我留言</p>
+  <p class="lead">
+    {% if session.logged_in %}
+      <a href="{{ url_for('article') }}" class="btn btn-lg btn-default">查看文章</a>
+    {% else %}
+      <a href="{{ url_for('login') }}" class="btn btn-lg btn-default">注册或登录</a>
+    {% endif %}
+  </p>
+{% endblock %}

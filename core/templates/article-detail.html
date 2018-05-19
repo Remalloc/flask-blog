@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% block inner %}
+  <div class="content box">
+    <div class="title">
+      <h1>{{ post.title }}
+        <small>{{ username[post.author] }}</small>
+      </h1>
+    </div>
+    <hr>
+    <div id="markdown">{{ post.body }}</div>
+  </div>
+  <div class="comment box">
+    <h4>评论</h4>
+    {% if session.logged_in %}
+      <div class="comment-form">
+        <form method=post action={{ url_for('add',page = page,aid=post.id ) }}>
+          {{ comment_form.csrf_token }}
+          <input type="hidden" name="reply" value=""/>
+          <div class="form-group">
+            <textarea type="text" class="form-control" name="content" placeholder="请输入3~1000个字的评论" required></textarea>
+            <div class="submit">
+              <input type="submit" value="发表评论" class="btn btn-primary">
+            </div>
+          </div>
+        </form>
+      </div>
+    {% else %}
+      <div class="alert alert-warning" role="alert">
+        请<a href="{{ url_for('login') }}" class="alert-link">登录</a>后评论!
+      </div>
+    {% endif %}
+    <div class="comment-list">
+      {% for comment in reversed(all_comment) %}
+        <div class="comment-item panel panel-default">
+          <div class="panel-body">
+            <strong>{{ username[comment.uid] }}</strong><span class="floor">  #{{ comment.floor }}</span><br>
+            <p class="content">{{ comment.content }}</p>
+
+            {% if session.logged_in %}
+              <a role="button" class="to_reply" data-toggle="modal"
+                 data-target="#replyModal" data-username="@{{ username[comment.uid] }}"
+                 data-content="{{ comment.content }}" data-cid="{{ comment.cid }}"
+                 data-floor="{{ comment.floor }}">回复</a>
+              {% if session.uid == comment.uid or session.uid == admin_uid %}
+                <a role="button" class="del-dialog" data-toggle="modal"
+                   data-target=".del-modal" data-aid="{{ post.id }}" data-cid="{{ comment.cid }}">删除</a>
+              {% endif %}
+            {% endif %}
+
+            {% if comment.reply %}
+              <a role="button" class="view_reply" data-toggle="collapse" href="#collapseReply-{{ comment.cid }}"
+                 aria-expanded="false" aria-controls="collapseReply">查看回复</a>
+            {% endif %}
+          </div>
+          <div class="collapse" id="collapseReply-{{ comment.cid }}">
+            <div class="panel-footer">
+              {% for reply in reversed(comment.reply) %}
+                <div class="panel panel-default">
+                  <div class="panel-body">
+                    <strong>{{ username[reply.uid] }}</strong><span
+                      class="floor">  #{{ reply.floor }}</span><br>
+                    <p class="content">{{ reply.content }}</p>
+                    {% if session.logged_in %}
+                      <a role="button" class="to_reply" data-toggle="modal"
+                         data-target="#replyModal" data-username="@{{ username[reply.uid] }}"
+                         data-content="{{ reply.content }}" data-cid="{{ reply.cid }}"
+                         data-floor="{{ reply.floor }}">回复</a>
+                      {% if session.uid == comment.uid or session.uid == admin_uid %}
+                        <a role="button" class="del-dialog" data-toggle="modal"
+                           data-target=".del-modal" data-aid="{{ post.id }}" data-cid="{{ reply.cid }}">删除</a>
+                      {% endif %}
+                    {% endif %}
+                  </div>
+                </div>
+              {% endfor %}
+              <div class="pack-up">
+                <a role="button" data-toggle="collapse" href="#collapseReply-{{ comment.cid }}"
+                   aria-expanded="false" aria-controls="collapseReply">收起回复</a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="modal fade" id="replyModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">新评论</h4>
+          </div>
+          <div class="modal-body">
+            <form id="reply-form" method=post action={{ url_for('add',page = page,aid=post.id ) }}>
+              {{ comment_form.csrf_token }}
+              <div class="form-group">
+                <label for="reply-name" class="control-label">回复:</label>
+                <input type="text" class="form-control" id="reply-name" disabled="disabled">
+                <input type="hidden" name="reply" id="reply" value="">
+              </div>
+              <div class="form-group">
+                <label for="reply-content" class="control-label">内容</label>
+                <textarea class="form-control" id="reply-content" name="content"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" id="send" class="btn btn-primary">发送</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade del-modal" tabindex="-1" role="dialog" aria-labelledby="delModalLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4>是否删除该条评论?</h4>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            <button type="button" id="determine_del" class="btn btn-danger">确定</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,310 @@
+/* 自定义按钮样式 */
+.btn-default,
+.btn-default:hover,
+.btn-default:focus {
+  color: #333;
+  text-shadow: none;
+  background-color: #fff;
+  border: 1px solid #fff;
+}
+
+/* 基础样式 */
+html,
+body {
+  height: 100%;
+  background-color: #333;
+  color: #fff;
+}
+
+/* 页面样式 */
+.site-wrapper {
+  width: 100%;
+  height: 100%; /* For at least Firefox */
+  min-height: 100%;
+  display: table;
+}
+
+.site-header {
+  display: table-row;
+}
+
+.site-connect {
+  display: table-row;
+  height: 100%;
+}
+
+.site-foot {
+  display: table-row;
+}
+
+/* 内页样式 */
+.inner {
+  padding: 5px;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+/* 头部 */
+.masthead {
+  text-align: center;
+  display: table-cell;
+  padding: 30px 20px 10px 20px;
+  -webkit-box-shadow: 0 6px 5px -3px rgba(0, 0, 0, .5);
+  box-shadow: 0 6px 5px -3px rgba(0, 0, 0, .5);
+}
+
+.masthead-brand {
+  margin: 10px auto;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, .5);
+}
+
+.masthead-nav > li {
+  display: inline-block;
+}
+
+.masthead-nav > li + li {
+  margin-left: 20px;
+}
+
+.masthead-nav > li > a,
+.masthead-nav > ul > li > a {
+  padding-right: 0;
+  padding-left: 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff; /* IE8 proofing */
+  color: rgba(255, 255, 255, .75);
+  border-bottom: 2px solid transparent;
+}
+
+.masthead-nav > li > a:hover,
+.masthead-nav > li > a:focus {
+  background-color: transparent;
+  border-bottom-color: #a9a9a9;
+  border-bottom-color: rgba(255, 255, 255, .25);
+}
+
+.masthead-nav > .active > a,
+.masthead-nav > .active > a:hover,
+.masthead-nav > .active > a:focus {
+  color: #fff;
+  border-bottom-color: #fff;
+}
+
+@media (min-width: 768px) {
+  .masthead-brand {
+    float: left;
+  }
+
+  .masthead-nav {
+    float: right;
+  }
+}
+
+/*底部*/
+.site-foot {
+  color: #999; /* IE8 proofing */
+  color: rgba(255, 255, 255, .5);
+}
+
+/* 页面两边占位 */
+.occupation {
+  display: table-cell;
+  width: 0;
+}
+
+@media (min-width: 768px) {
+  .occupation {
+    width: 10%;
+  }
+}
+
+@media (min-width: 900px) {
+  .occupation {
+    width: 20%;
+  }
+}
+
+/* 登录与注册表单样式 */
+.login-form, .register-form {
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+}
+
+@media (max-width: 425px) {
+  .login-form, .register-form {
+    width: 70%;
+  }
+}
+
+.form-label {
+  float: left;
+}
+
+.form-button .btn {
+  width: 60%;
+}
+
+.form-button a {
+  margin-top: 15px;
+  display: block;
+}
+
+.nav .open > a:focus,
+.nav .open > a:hover {
+  background-color: transparent;
+  color: #fff;
+  border-bottom-color: #fff;
+}
+
+/* 文章页面样式 */
+.articles {
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
+
+.box {
+  background-color: white;
+  color: black;
+  text-align: left;
+  border-radius: 5px;
+  padding: 5px 15px;
+}
+
+.list-group-item {
+  text-align: justify;
+}
+
+.list-group-item a {
+  display: inline;
+  cursor: pointer;
+  color: #337ab7;
+}
+
+.title-list {
+  font-size: large;
+  text-align: left;
+}
+
+.title-list .list-group a span {
+  display: none;
+  float: right;
+}
+
+@media (min-width: 768px) {
+  .articles {
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+  }
+
+  .box {
+    padding: 5px 50px;
+  }
+
+  .title-list .list-group a span {
+    display: inline;
+  }
+}
+
+/* 评论样式 */
+.comment {
+  margin-top: 10px;
+}
+
+.comment label {
+  width: 100%;
+}
+
+.comment-form textarea {
+  resize: none;
+}
+
+.comment-form .submit {
+  text-align: right;
+}
+
+@media (min-width: 768px) {
+  .comment-form textarea {
+    float: left;
+    width: 85%;
+  }
+
+  .comment-form .submit input {
+    width: 60px;
+    height: 55px;
+    white-space: normal;
+  }
+}
+
+.comment-item {
+  margin-bottom: 5px;
+}
+
+.comment-item .floor {
+  color: #adadad;
+}
+
+.comment-item .panel-body a {
+  margin-left: 5px;
+  margin-right: 5px;
+  float: right;
+  cursor: pointer;
+}
+
+.comment-item .panel-footer .pack-up {
+  text-align: right;
+  margin: 0;
+}
+
+.collapse .panel-footer .panel-default {
+  margin-bottom: 5px;
+}
+
+.setting-form {
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+  padding: 5px 15px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+/* 管理员界面 */
+/* 文章表格样式 */
+.admin-articles {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+.admin-articles a {
+  cursor: pointer;
+}
+
+.admin-articles tr {
+  background: white;
+  color: black;
+  text-align: left;
+}
+
+#article-modal {
+  text-align: left;
+  color: black;
+}
+
+.user-list {
+  width: 80%;
+  margin: 0 auto;
+  color: black;
+  background: white;
+  text-align: left;
+}
+
+.user-list a {
+  cursor: pointer;
+}
