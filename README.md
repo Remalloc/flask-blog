@@ -1,5 +1,6 @@
 # Flask Blog
 ![progressed](http://progressed.io/bar/91?title=done)
+**目前版本Flask-admin插件有XSS漏洞**
 
 用Flask框架搭建的一个博客，已部署在阿里云 [Remalloc的博客](http://www.remalloc.top)
 ## 1.结构设计
